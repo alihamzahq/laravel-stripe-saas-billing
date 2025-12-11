@@ -21,10 +21,10 @@ main (production)
 
 | Phase | Branch Name | Status | Description |
 |-------|-------------|--------|-------------|
-| 1 | `feature/foundation-setup` | ⬜ Pending | Install Cashier, configure Stripe, create migrations |
-| 2 | `feature/models-setup` | ⬜ Pending | Create models (Plan, WebhookLog, PaymentLog), update User |
-| 3 | `feature/payment-infrastructure` | ⬜ Pending | Contracts, Handlers, Factory, Services |
-| 4 | `feature/api-auth` | ⬜ Pending | API authentication endpoints |
+| 1 | `feature/foundation-setup` | ✅ Completed | Install Cashier, configure Stripe, create migrations |
+| 2 | `feature/models-setup` | ✅ Completed | Create models (Plan, WebhookLog, PaymentLog), update User |
+| 3 | `feature/payment-infrastructure` | ✅ Completed | Contracts, Handlers, Factory, Services |
+| 4 | `feature/api-auth` | 🔄 In Progress | API authentication endpoints |
 | 5 | `feature/api-plans` | ⬜ Pending | Plans API endpoints |
 | 6 | `feature/api-subscriptions` | ⬜ Pending | Subscriptions API endpoints |
 | 7 | `feature/api-payment-methods` | ⬜ Pending | Payment methods API endpoints |
@@ -46,42 +46,43 @@ main (production)
 
 ### Phase 1: Foundation Setup
 **Branch:** `feature/foundation-setup`
-**Status:** ⬜ Pending
+**Status:** ✅ Completed
 
 **Tasks:**
-- [ ] Install Laravel Cashier (`composer require laravel/cashier`)
-- [ ] Publish Cashier migrations
-- [ ] Configure Stripe in `.env`
-- [ ] Update `config/services.php` with Stripe config
-- [ ] Create migration: `add_stripe_columns_to_users_table`
-- [ ] Create migration: `create_plans_table`
-- [ ] Create migration: `add_columns_to_subscriptions_table`
-- [ ] Create migration: `create_webhook_logs_table`
-- [ ] Create migration: `create_payment_logs_table`
-- [ ] Run all migrations
+- [x] Install Laravel Cashier (`composer require laravel/cashier`)
+- [x] Publish Cashier migrations
+- [x] Configure Stripe in `.env` and `.env.example`
+- [x] Update `config/services.php` with Stripe config
+- [x] Create migration: `add_is_admin_to_users_table`
+- [x] Create migration: `create_plans_table`
+- [x] Create migration: `add_columns_to_subscriptions_table`
+- [x] Create migration: `create_webhook_logs_table`
+- [x] Create migration: `create_payment_logs_table`
+- [x] Run all migrations
 
 **Files:**
 ```
 .env
+.env.example
 config/services.php
-database/migrations/xxxx_add_stripe_columns_to_users_table.php
-database/migrations/xxxx_create_plans_table.php
-database/migrations/xxxx_add_columns_to_subscriptions_table.php
-database/migrations/xxxx_create_webhook_logs_table.php
-database/migrations/xxxx_create_payment_logs_table.php
+database/migrations/2025_12_11_205805_add_is_admin_to_users_table.php
+database/migrations/2025_12_11_205848_create_plans_table.php
+database/migrations/2025_12_11_205926_add_columns_to_subscriptions_table.php
+database/migrations/2025_12_11_205956_create_webhook_logs_table.php
+database/migrations/2025_12_11_210028_create_payment_logs_table.php
 ```
 
 ---
 
 ### Phase 2: Models Setup
 **Branch:** `feature/models-setup`
-**Status:** ⬜ Pending
+**Status:** ✅ Completed
 
 **Tasks:**
-- [ ] Create `Plan` model with fillable, casts, scopes
-- [ ] Create `WebhookLog` model
-- [ ] Create `PaymentLog` model
-- [ ] Update `User` model (add Billable trait, is_admin, relationships)
+- [x] Create `Plan` model with fillable, casts, scopes
+- [x] Create `WebhookLog` model
+- [x] Create `PaymentLog` model
+- [x] Update `User` model (add Billable trait, is_admin, relationships)
 
 **Files:**
 ```
@@ -95,15 +96,15 @@ app/Models/User.php (update)
 
 ### Phase 3: Payment Infrastructure
 **Branch:** `feature/payment-infrastructure`
-**Status:** ⬜ Pending
+**Status:** ✅ Completed
 
 **Tasks:**
-- [ ] Create `PaymentMethodInterface` contract
-- [ ] Implement `CardPaymentHandler`
-- [ ] Implement `BankTransferPaymentHandler`
-- [ ] Update `PaymentMethodFactory`
-- [ ] Create `SubscriptionService`
-- [ ] Create `PlanService`
+- [x] Create `PaymentMethodInterface` contract
+- [x] Implement `CardPaymentHandler`
+- [x] Implement `BankTransferPaymentHandler`
+- [x] Update `PaymentMethodFactory`
+- [x] Create `SubscriptionService`
+- [x] Create `PlanService`
 
 **Files:**
 ```
@@ -119,7 +120,7 @@ app/Services/PlanService.php
 
 ### Phase 4: API Authentication
 **Branch:** `feature/api-auth`
-**Status:** ⬜ Pending
+**Status:** 🔄 In Progress
 
 **Tasks:**
 - [ ] Create `AuthController` (register, login, logout, me)
@@ -418,7 +419,9 @@ database/seeders/DatabaseSeeder.php (update)
 
 | Phase | Branch | Commit Message | Date |
 |-------|--------|----------------|------|
-| - | - | - | - |
+| 1 | `feature/foundation-setup` | Install Cashier, configure Stripe, and create billing migrations | 2025-12-11 |
+| 2 | `feature/models-setup` | Add Plan, WebhookLog, PaymentLog models and update User with Billable trait | 2025-12-12 |
+| 3 | `feature/payment-infrastructure` | Add payment infrastructure with contracts, handlers, factory, and services | 2025-12-12 |
 
 ---
 
