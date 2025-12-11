@@ -24,7 +24,7 @@ main (production)
 | 1 | `feature/foundation-setup` | ✅ Completed | Install Cashier, configure Stripe, create migrations |
 | 2 | `feature/models-setup` | ✅ Completed | Create models (Plan, WebhookLog, PaymentLog), update User |
 | 3 | `feature/payment-infrastructure` | ✅ Completed | Contracts, Handlers, Factory, Services |
-| 4 | `feature/api-auth` | 🔄 In Progress | API authentication endpoints |
+| 4 | `feature/api-auth` | ✅ Completed | API authentication endpoints |
 | 5 | `feature/api-plans` | ⬜ Pending | Plans API endpoints |
 | 6 | `feature/api-subscriptions` | ⬜ Pending | Subscriptions API endpoints |
 | 7 | `feature/api-payment-methods` | ⬜ Pending | Payment methods API endpoints |
@@ -120,14 +120,15 @@ app/Services/PlanService.php
 
 ### Phase 4: API Authentication
 **Branch:** `feature/api-auth`
-**Status:** 🔄 In Progress
+**Status:** ✅ Completed
 
 **Tasks:**
-- [ ] Create `AuthController` (register, login, logout, me)
-- [ ] Create `RegisterRequest` validation
-- [ ] Create `LoginRequest` validation
-- [ ] Create `UserResource`
-- [ ] Add auth routes to `routes/api.php`
+- [x] Create `AuthController` (register, login, logout, me)
+- [x] Create `RegisterRequest` validation
+- [x] Create `LoginRequest` validation
+- [x] Create `UserResource`
+- [x] Add auth routes to `routes/api.php`
+- [x] Publish Sanctum config and migrations
 
 **Files:**
 ```
@@ -136,6 +137,9 @@ app/Http/Requests/Api/RegisterRequest.php
 app/Http/Requests/Api/LoginRequest.php
 app/Http/Resources/UserResource.php
 routes/api.php
+bootstrap/app.php (update)
+config/sanctum.php
+database/migrations/2025_12_11_213713_create_personal_access_tokens_table.php
 ```
 
 ---
@@ -422,6 +426,7 @@ database/seeders/DatabaseSeeder.php (update)
 | 1 | `feature/foundation-setup` | Install Cashier, configure Stripe, and create billing migrations | 2025-12-11 |
 | 2 | `feature/models-setup` | Add Plan, WebhookLog, PaymentLog models and update User with Billable trait | 2025-12-12 |
 | 3 | `feature/payment-infrastructure` | Add payment infrastructure with contracts, handlers, factory, and services | 2025-12-12 |
+| 4 | `feature/api-auth` | Add API authentication with Sanctum tokens and user endpoints | 2025-12-12 |
 
 ---
 
