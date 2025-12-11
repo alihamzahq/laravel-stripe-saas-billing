@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\PlanController;
 use App\Http\Controllers\Api\V1\SubscriptionController;
 use App\Http\Controllers\Api\V1\PaymentMethodController;
+use App\Http\Controllers\Api\V1\InvoiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,6 +43,10 @@ Route::prefix('v1')->group(function () {
 
         // Setup Intent route
         Route::post('setup-intent', [PaymentMethodController::class, 'setupIntent']);
+
+        // Invoices routes
+        Route::apiResource('invoices', InvoiceController::class)->only(['index', 'show']);
+        Route::get('invoices/{invoice}/download', [InvoiceController::class, 'download'])->name('invoices.download');
     });
 
     // Plans routes (public)

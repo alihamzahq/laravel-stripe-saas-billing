@@ -28,7 +28,7 @@ main (production)
 | 5 | `feature/api-plans` | ✅ Completed | Plans API endpoints |
 | 6 | `feature/api-subscriptions` | ✅ Completed | Subscriptions API endpoints |
 | 7 | `feature/api-payment-methods` | ✅ Completed | Payment methods API endpoints |
-| 8 | `feature/api-invoices` | ⬜ Pending | Invoices API endpoints |
+| 8 | `feature/api-invoices` | ✅ Completed | Invoices API endpoints |
 | 9 | `feature/api-webhooks` | ⬜ Pending | Stripe webhook handling |
 | 10 | `feature/admin-middleware-routes` | ⬜ Pending | Admin middleware and routes setup |
 | 11 | `feature/admin-controllers` | ⬜ Pending | Admin controllers |
@@ -204,15 +204,17 @@ routes/api.php (update)
 
 ### Phase 8: API Invoices
 **Branch:** `feature/api-invoices`
-**Status:** ⬜ Pending
+**Status:** ✅ Completed
 
 **Tasks:**
-- [ ] Create `InvoiceController` (index, show)
-- [ ] Create `InvoiceResource`
-- [ ] Add invoice routes to `routes/api.php`
+- [x] Create `InvoiceService` service layer
+- [x] Create `InvoiceController` (index, show, download)
+- [x] Create `InvoiceResource`
+- [x] Add invoice routes to `routes/api.php` (using apiResource)
 
 **Files:**
 ```
+app/Services/InvoiceService.php
 app/Http/Controllers/Api/V1/InvoiceController.php
 app/Http/Resources/InvoiceResource.php
 routes/api.php (update)
