@@ -30,7 +30,7 @@ main (production)
 | 7 | `feature/api-payment-methods` | ✅ Completed | Payment methods API endpoints |
 | 8 | `feature/api-invoices` | ✅ Completed | Invoices API endpoints |
 | 9 | `feature/api-webhooks` | ✅ Completed | Stripe webhook handling |
-| 10 | `feature/admin-middleware-routes` | ⬜ Pending | Admin middleware and routes setup |
+| 10 | `feature/admin-middleware-routes` | ✅ Completed | Admin middleware and routes setup |
 | 11 | `feature/admin-controllers` | ⬜ Pending | Admin controllers |
 | 12 | `feature/admin-layout-components` | ⬜ Pending | AdminLayout and reusable components |
 | 13 | `feature/admin-dashboard` | ⬜ Pending | Admin dashboard page |
@@ -247,18 +247,19 @@ routes/api.php (update)
 
 ### Phase 10: Admin Middleware & Routes
 **Branch:** `feature/admin-middleware-routes`
-**Status:** ⬜ Pending
+**Status:** ✅ Completed
 
 **Tasks:**
-- [ ] Create `AdminMiddleware`
-- [ ] Register middleware in `bootstrap/app.php`
-- [ ] Add admin routes to `routes/web.php`
+- [x] Create `AdminMiddleware`
+- [x] Register middleware in `bootstrap/app.php`
+- [x] Create separate `routes/admin.php` (route group structure only)
 
 **Files:**
 ```
 app/Http/Middleware/AdminMiddleware.php
-bootstrap/app.php (update)
+routes/admin.php
 routes/web.php (update)
+bootstrap/app.php (update)
 ```
 
 ---
@@ -275,6 +276,7 @@ routes/web.php (update)
 - [ ] Create `Admin\LogController` (webhooks, payments)
 - [ ] Create `StorePlanRequest` validation
 - [ ] Create `UpdatePlanRequest` validation
+- [ ] Add admin routes to `routes/admin.php`
 
 **Files:**
 ```
