@@ -25,8 +25,8 @@ main (production)
 | 2 | `feature/models-setup` | ✅ Completed | Create models (Plan, WebhookLog, PaymentLog), update User |
 | 3 | `feature/payment-infrastructure` | ✅ Completed | Contracts, Handlers, Factory, Services |
 | 4 | `feature/api-auth` | ✅ Completed | API authentication endpoints |
-| 5 | `feature/api-plans` | ⬜ Pending | Plans API endpoints |
-| 6 | `feature/api-subscriptions` | ⬜ Pending | Subscriptions API endpoints |
+| 5 | `feature/api-plans` | ✅ Completed | Plans API endpoints |
+| 6 | `feature/api-subscriptions` | ✅ Completed | Subscriptions API endpoints |
 | 7 | `feature/api-payment-methods` | ⬜ Pending | Payment methods API endpoints |
 | 8 | `feature/api-invoices` | ⬜ Pending | Invoices API endpoints |
 | 9 | `feature/api-webhooks` | ⬜ Pending | Stripe webhook handling |
@@ -146,12 +146,12 @@ database/migrations/2025_12_11_213713_create_personal_access_tokens_table.php
 
 ### Phase 5: API Plans
 **Branch:** `feature/api-plans`
-**Status:** ⬜ Pending
+**Status:** ✅ Completed
 
 **Tasks:**
-- [ ] Create `PlanController` (index, show)
-- [ ] Create `PlanResource`
-- [ ] Add plans routes to `routes/api.php`
+- [x] Create `PlanController` (index, show)
+- [x] Create `PlanResource`
+- [x] Add plans routes to `routes/api.php`
 
 **Files:**
 ```
@@ -164,13 +164,13 @@ routes/api.php (update)
 
 ### Phase 6: API Subscriptions
 **Branch:** `feature/api-subscriptions`
-**Status:** ⬜ Pending
+**Status:** ✅ Completed
 
 **Tasks:**
-- [ ] Create `SubscriptionController` (store, me, cancel, resume, changePlan)
-- [ ] Create `SubscribeRequest` validation
-- [ ] Create `SubscriptionResource`
-- [ ] Add subscription routes to `routes/api.php`
+- [x] Create `SubscriptionController` (store, me, cancel, resume, changePlan)
+- [x] Create `SubscribeRequest` validation
+- [x] Create `SubscriptionResource`
+- [x] Add subscription routes to `routes/api.php`
 
 **Files:**
 ```
@@ -427,6 +427,8 @@ database/seeders/DatabaseSeeder.php (update)
 | 2 | `feature/models-setup` | Add Plan, WebhookLog, PaymentLog models and update User with Billable trait | 2025-12-12 |
 | 3 | `feature/payment-infrastructure` | Add payment infrastructure with contracts, handlers, factory, and services | 2025-12-12 |
 | 4 | `feature/api-auth` | Add API authentication with Sanctum tokens and user endpoints | 2025-12-12 |
+| 5 | `feature/api-plans` | Add Plans API endpoints with PlanController and PlanResource | 2025-12-12 |
+| 6 | `feature/api-subscriptions` | Add Subscriptions API with subscribe, cancel, resume, and change plan | 2025-12-12 |
 
 ---
 
