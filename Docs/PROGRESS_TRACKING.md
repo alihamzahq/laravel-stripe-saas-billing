@@ -27,7 +27,7 @@ main (production)
 | 4 | `feature/api-auth` | ✅ Completed | API authentication endpoints |
 | 5 | `feature/api-plans` | ✅ Completed | Plans API endpoints |
 | 6 | `feature/api-subscriptions` | ✅ Completed | Subscriptions API endpoints |
-| 7 | `feature/api-payment-methods` | ⬜ Pending | Payment methods API endpoints |
+| 7 | `feature/api-payment-methods` | ✅ Completed | Payment methods API endpoints |
 | 8 | `feature/api-invoices` | ⬜ Pending | Invoices API endpoints |
 | 9 | `feature/api-webhooks` | ⬜ Pending | Stripe webhook handling |
 | 10 | `feature/admin-middleware-routes` | ⬜ Pending | Admin middleware and routes setup |
@@ -184,15 +184,19 @@ routes/api.php (update)
 
 ### Phase 7: API Payment Methods
 **Branch:** `feature/api-payment-methods`
-**Status:** ⬜ Pending
+**Status:** ✅ Completed
 
 **Tasks:**
-- [ ] Create `PaymentMethodController` (index, store, destroy, setupIntent)
-- [ ] Add payment method routes to `routes/api.php`
+- [x] Create `PaymentMethodService` service layer
+- [x] Create `PaymentMethodController` (index, store, destroy, setupIntent, setDefault)
+- [x] Create `PaymentMethodResource` for JSON responses
+- [x] Add payment method routes to `routes/api.php` (using apiResource)
 
 **Files:**
 ```
+app/Services/PaymentMethodService.php
 app/Http/Controllers/Api/V1/PaymentMethodController.php
+app/Http/Resources/PaymentMethodResource.php
 routes/api.php (update)
 ```
 

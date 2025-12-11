@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\PlanController;
 use App\Http\Controllers\Api\V1\SubscriptionController;
+use App\Http\Controllers\Api\V1\PaymentMethodController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,13 @@ Route::prefix('v1')->group(function () {
             Route::post('resume', 'resume');
             Route::put('change-plan', 'changePlan');
         });
+
+        // Payment Methods routes
+        Route::apiResource('payment-methods', PaymentMethodController::class)->except(['show', 'update']);
+        Route::post('payment-methods/set-default', [PaymentMethodController::class, 'setDefault']);
+
+        // Setup Intent route
+        Route::post('setup-intent', [PaymentMethodController::class, 'setupIntent']);
     });
 
     // Plans routes (public)
