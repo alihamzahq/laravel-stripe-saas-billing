@@ -29,7 +29,7 @@ main (production)
 | 6 | `feature/api-subscriptions` | ✅ Completed | Subscriptions API endpoints |
 | 7 | `feature/api-payment-methods` | ✅ Completed | Payment methods API endpoints |
 | 8 | `feature/api-invoices` | ✅ Completed | Invoices API endpoints |
-| 9 | `feature/api-webhooks` | ⬜ Pending | Stripe webhook handling |
+| 9 | `feature/api-webhooks` | ✅ Completed | Stripe webhook handling |
 | 10 | `feature/admin-middleware-routes` | ⬜ Pending | Admin middleware and routes setup |
 | 11 | `feature/admin-controllers` | ⬜ Pending | Admin controllers |
 | 12 | `feature/admin-layout-components` | ⬜ Pending | AdminLayout and reusable components |
@@ -224,20 +224,21 @@ routes/api.php (update)
 
 ### Phase 9: API Webhooks
 **Branch:** `feature/api-webhooks`
-**Status:** ⬜ Pending
+**Status:** ✅ Completed
 
 **Tasks:**
-- [ ] Create `WebhookController` with Stripe signature verification
-- [ ] Handle `invoice.paid` event
-- [ ] Handle `invoice.payment_failed` event
-- [ ] Handle `customer.subscription.updated` event
-- [ ] Handle `customer.subscription.deleted` event
-- [ ] Handle `charge.refunded` event
-- [ ] Log all webhook events to `webhook_logs` table
-- [ ] Add webhook route to `routes/api.php`
+- [x] Create `WebhookController` with Stripe signature verification
+- [x] Handle `invoice.paid` event
+- [x] Handle `invoice.payment_failed` event
+- [x] Handle `customer.subscription.updated` event
+- [x] Handle `customer.subscription.deleted` event
+- [x] Handle `charge.refunded` event
+- [x] Log all webhook events to `webhook_logs` table
+- [x] Add webhook route to `routes/api.php`
 
 **Files:**
 ```
+app/Services/WebhookService.php
 app/Http/Controllers/Api/V1/WebhookController.php
 routes/api.php (update)
 ```

@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\PlanController;
 use App\Http\Controllers\Api\V1\SubscriptionController;
 use App\Http\Controllers\Api\V1\PaymentMethodController;
 use App\Http\Controllers\Api\V1\InvoiceController;
+use App\Http\Controllers\Api\V1\WebhookController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,4 +53,7 @@ Route::prefix('v1')->group(function () {
     // Plans routes (public)
     Route::get('plans', [PlanController::class, 'index']);
     Route::get('plans/{plan}', [PlanController::class, 'show']);
+
+    // Webhook route (no auth, uses Stripe signature verification)
+    Route::post('webhook/stripe', [WebhookController::class, 'handle']);
 });
