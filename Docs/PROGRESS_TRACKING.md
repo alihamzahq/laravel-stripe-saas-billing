@@ -31,7 +31,7 @@ main (production)
 | 8 | `feature/api-invoices` | ✅ Completed | Invoices API endpoints |
 | 9 | `feature/api-webhooks` | ✅ Completed | Stripe webhook handling |
 | 10 | `feature/admin-middleware-routes` | ✅ Completed | Admin middleware and routes setup |
-| 11 | `feature/admin-controllers` | ⬜ Pending | Admin controllers |
+| 11 | `feature/admin-controllers` | 🔄 In Progress | Admin controllers |
 | 12 | `feature/admin-layout-components` | ⬜ Pending | AdminLayout and reusable components |
 | 13 | `feature/admin-dashboard` | ⬜ Pending | Admin dashboard page |
 | 14 | `feature/admin-plans` | ⬜ Pending | Admin plans CRUD pages |
@@ -266,17 +266,17 @@ bootstrap/app.php (update)
 
 ### Phase 11: Admin Controllers
 **Branch:** `feature/admin-controllers`
-**Status:** ⬜ Pending
+**Status:** 🔄 In Progress
 
 **Tasks:**
-- [ ] Create `Admin\DashboardController`
-- [ ] Create `Admin\PlanController` (CRUD + toggleActive)
-- [ ] Create `Admin\SubscriptionController` (index, show, cancel, refund)
-- [ ] Create `Admin\UserController` (index, show)
-- [ ] Create `Admin\LogController` (webhooks, payments)
-- [ ] Create `StorePlanRequest` validation
-- [ ] Create `UpdatePlanRequest` validation
-- [ ] Add admin routes to `routes/admin.php`
+- [x] Create `Admin\DashboardController`
+- [x] Create `Admin\PlanController` (CRUD + toggleActive)
+- [x] Create `Admin\SubscriptionController` (index, show, cancel, refund)
+- [x] Create `Admin\UserController` (index, show)
+- [x] Create `Admin\LogController` (webhooks, payments)
+- [x] Create `StorePlanRequest` validation
+- [x] Create `UpdatePlanRequest` validation
+- [x] Add admin routes to `routes/admin.php`
 
 **Files:**
 ```
@@ -287,6 +287,7 @@ app/Http/Controllers/Admin/UserController.php
 app/Http/Controllers/Admin/LogController.php
 app/Http/Requests/Admin/StorePlanRequest.php
 app/Http/Requests/Admin/UpdatePlanRequest.php
+routes/admin.php (update)
 ```
 
 ---
