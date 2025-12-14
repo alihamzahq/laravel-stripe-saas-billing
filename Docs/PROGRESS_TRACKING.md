@@ -402,17 +402,16 @@ resources/js/Pages/Admin/Logs/Payments.jsx
 
 ### Phase 18: Seeders
 **Branch:** `feature/seeders`
-**Status:** ⬜ Pending
+**Status:** 🔄 In Progress
 
 **Tasks:**
-- [ ] Create `AdminUserSeeder`
-- [ ] Create `PlanSeeder`
-- [ ] Update `DatabaseSeeder` to call both seeders
-- [ ] Run seeders
+- [x] Create `AdminUserSeeder` (completed in Phase 13.1)
+- [x] Create `PlanSeeder` with 3 plans (Basic, Pro, Enterprise)
+- [x] Update `DatabaseSeeder` to call both seeders
 
 **Files:**
 ```
-database/seeders/AdminUserSeeder.php
+database/seeders/AdminUserSeeder.php (existing)
 database/seeders/PlanSeeder.php
 database/seeders/DatabaseSeeder.php (update)
 ```
