@@ -49,7 +49,7 @@ export default function AdminLayout({ children, header }) {
                             {auth.user.name}
                         </span>
                         <Link
-                            href={route('logout')}
+                            href={route('admin.logout')}
                             method="post"
                             as="button"
                             className="rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200"

@@ -33,12 +33,13 @@ main (production)
 | 10 | `feature/admin-middleware-routes` | ✅ Completed | Admin middleware and routes setup |
 | 11 | `feature/admin-controllers` | ✅ Completed | Admin controllers |
 | 12 | `feature/admin-layout-components` | ✅ Completed | AdminLayout and reusable components |
-| 13 | `feature/admin-dashboard` | 🔄 In Progress | Admin dashboard page |
+| 13 | `feature/admin-dashboard` | ✅ Completed | Admin dashboard page |
+| 13.1 | `feature/admin-auth` | 🔄 In Progress | Admin auth and seeder |
 | 14 | `feature/admin-plans` | ⬜ Pending | Admin plans CRUD pages |
 | 15 | `feature/admin-subscriptions` | ⬜ Pending | Admin subscriptions pages |
 | 16 | `feature/admin-users` | ⬜ Pending | Admin users pages |
 | 17 | `feature/admin-logs` | ⬜ Pending | Admin logs pages |
-| 18 | `feature/seeders` | ⬜ Pending | Admin user and plans seeders |
+| 18 | `feature/seeders` | ⬜ Pending | Plans seeders |
 
 ---
 

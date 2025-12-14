@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\Admin\PlanController;
@@ -13,10 +14,21 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register admin routes for your application.
-| These routes are loaded with the "auth" and "admin" middleware.
 |
 */
 
+// Admin Auth Routes (guest only)
+Route::prefix('admin')->name('admin.')->middleware('guest')->group(function () {
+    Route::get('login', [AuthController::class, 'create'])->name('login');
+    Route::post('login', [AuthController::class, 'store'])->name('login.store');
+});
+
+// Admin Logout (auth only)
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::post('logout', [AuthController::class, 'destroy'])->name('logout');
+});
+
+// Admin Protected Routes (auth + admin)
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     // Dashboard
     Route::get('/', function () {
