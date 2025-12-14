@@ -370,11 +370,11 @@ resources/js/Pages/Admin/Subscriptions/Show.jsx
 
 ### Phase 16: Admin Users Pages
 **Branch:** `feature/admin-users`
-**Status:** ⬜ Pending
+**Status:** 🔄 In Progress
 
 **Tasks:**
-- [ ] Create `Admin/Users/Index.jsx` - list all users
-- [ ] Create `Admin/Users/Show.jsx` - user details + subscription
+- [x] Create `Admin/Users/Index.jsx` - list all users with search
+- [x] Create `Admin/Users/Show.jsx` - user details, subscription, payment history
 
 **Files:**
 ```
