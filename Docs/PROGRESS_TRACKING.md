@@ -386,11 +386,11 @@ resources/js/Pages/Admin/Users/Show.jsx
 
 ### Phase 17: Admin Logs Pages
 **Branch:** `feature/admin-logs`
-**Status:** ⬜ Pending
+**Status:** 🔄 In Progress
 
 **Tasks:**
-- [ ] Create `Admin/Logs/Webhooks.jsx` - webhook logs with filters
-- [ ] Create `Admin/Logs/Payments.jsx` - payment logs with filters
+- [x] Create `Admin/Logs/Webhooks.jsx` - webhook logs with status/event/date filters
+- [x] Create `Admin/Logs/Payments.jsx` - payment logs with status/action/date filters
 
 **Files:**
 ```
