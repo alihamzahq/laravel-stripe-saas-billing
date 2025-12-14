@@ -32,8 +32,8 @@ main (production)
 | 9 | `feature/api-webhooks` | ✅ Completed | Stripe webhook handling |
 | 10 | `feature/admin-middleware-routes` | ✅ Completed | Admin middleware and routes setup |
 | 11 | `feature/admin-controllers` | ✅ Completed | Admin controllers |
-| 12 | `feature/admin-layout-components` | 🔄 In Progress | AdminLayout and reusable components |
-| 13 | `feature/admin-dashboard` | ⬜ Pending | Admin dashboard page |
+| 12 | `feature/admin-layout-components` | ✅ Completed | AdminLayout and reusable components |
+| 13 | `feature/admin-dashboard` | 🔄 In Progress | Admin dashboard page |
 | 14 | `feature/admin-plans` | ⬜ Pending | Admin plans CRUD pages |
 | 15 | `feature/admin-subscriptions` | ⬜ Pending | Admin subscriptions pages |
 | 16 | `feature/admin-users` | ⬜ Pending | Admin users pages |
@@ -318,11 +318,11 @@ resources/js/Components/Admin/Pagination.jsx
 
 ### Phase 13: Admin Dashboard Page
 **Branch:** `feature/admin-dashboard`
-**Status:** ⬜ Pending
+**Status:** 🔄 In Progress
 
 **Tasks:**
-- [ ] Create `Admin/Dashboard.jsx` page
-- [ ] Display stats: total users, active subscriptions, revenue
+- [x] Create `Admin/Dashboard.jsx` page
+- [x] Display stats: total users, active subscriptions, revenue
 
 **Files:**
 ```
