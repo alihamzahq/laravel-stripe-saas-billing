@@ -354,11 +354,11 @@ resources/js/Pages/Admin/Plans/Show.jsx
 
 ### Phase 15: Admin Subscriptions Pages
 **Branch:** `feature/admin-subscriptions`
-**Status:** ⬜ Pending
+**Status:** 🔄 In Progress
 
 **Tasks:**
-- [ ] Create `Admin/Subscriptions/Index.jsx` - list all subscriptions
-- [ ] Create `Admin/Subscriptions/Show.jsx` - subscription details, cancel, refund
+- [x] Create `Admin/Subscriptions/Index.jsx` - list all subscriptions with status filter
+- [x] Create `Admin/Subscriptions/Show.jsx` - subscription details, cancel, refund modal
 
 **Files:**
 ```

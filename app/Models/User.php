@@ -60,6 +60,15 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the subscriptions for the user.
+     * Overrides Billable trait to use custom Subscription model.
+     */
+    public function subscriptions(): HasMany
+    {
+        return $this->hasMany(Subscription::class, $this->getForeignKey())->orderBy('created_at', 'desc');
+    }
+
+    /**
      * Get the payment logs for the user.
      */
     public function paymentLogs(): HasMany
