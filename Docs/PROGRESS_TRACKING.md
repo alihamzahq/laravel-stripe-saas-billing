@@ -31,8 +31,8 @@ main (production)
 | 8 | `feature/api-invoices` | ✅ Completed | Invoices API endpoints |
 | 9 | `feature/api-webhooks` | ✅ Completed | Stripe webhook handling |
 | 10 | `feature/admin-middleware-routes` | ✅ Completed | Admin middleware and routes setup |
-| 11 | `feature/admin-controllers` | 🔄 In Progress | Admin controllers |
-| 12 | `feature/admin-layout-components` | ⬜ Pending | AdminLayout and reusable components |
+| 11 | `feature/admin-controllers` | ✅ Completed | Admin controllers |
+| 12 | `feature/admin-layout-components` | 🔄 In Progress | AdminLayout and reusable components |
 | 13 | `feature/admin-dashboard` | ⬜ Pending | Admin dashboard page |
 | 14 | `feature/admin-plans` | ⬜ Pending | Admin plans CRUD pages |
 | 15 | `feature/admin-subscriptions` | ⬜ Pending | Admin subscriptions pages |
@@ -294,16 +294,15 @@ routes/admin.php (update)
 
 ### Phase 12: Admin Layout & Components
 **Branch:** `feature/admin-layout-components`
-**Status:** ⬜ Pending
+**Status:** 🔄 In Progress
 
 **Tasks:**
-- [ ] Create `AdminLayout.jsx`
-- [ ] Create `Sidebar.jsx` component
-- [ ] Create `StatsCard.jsx` component
-- [ ] Create `DataTable.jsx` component
-- [ ] Create `Modal.jsx` component
-- [ ] Create `Badge.jsx` component
-- [ ] Create `Pagination.jsx` component
+- [x] Create `AdminLayout.jsx`
+- [x] Create `Sidebar.jsx` component
+- [x] Create `StatsCard.jsx` component
+- [x] Create `DataTable.jsx` component
+- [x] Create `Badge.jsx` component
+- [x] Create `Pagination.jsx` component
 
 **Files:**
 ```
@@ -311,9 +310,8 @@ resources/js/Layouts/AdminLayout.jsx
 resources/js/Components/Admin/Sidebar.jsx
 resources/js/Components/Admin/StatsCard.jsx
 resources/js/Components/Admin/DataTable.jsx
-resources/js/Components/Common/Modal.jsx
-resources/js/Components/Common/Badge.jsx
-resources/js/Components/Common/Pagination.jsx
+resources/js/Components/Admin/Badge.jsx
+resources/js/Components/Admin/Pagination.jsx
 ```
 
 ---
