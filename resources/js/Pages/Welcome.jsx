@@ -70,6 +70,9 @@ export default function Welcome({ plans }) {
                                 <a href="#pricing" className="text-gray-600 hover:text-gray-900">
                                     Pricing
                                 </a>
+                                <a href="#api-docs" className="text-gray-600 hover:text-gray-900">
+                                    API Docs
+                                </a>
                                 <Link
                                     href={route('admin.login')}
                                     className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
@@ -341,27 +344,29 @@ export default function Welcome({ plans }) {
                 </section>
 
                 {/* Demo Credentials Section */}
-                <section className="bg-indigo-50 py-16">
-                    <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-                        <h2 className="text-2xl font-bold text-gray-900">
-                            Try the Admin Panel
-                        </h2>
-                        <p className="mt-2 text-gray-600">
-                            Use these demo credentials to explore the admin dashboard
-                        </p>
+                <section className="py-20">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <div className="text-center">
+                            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+                                Try the Admin Panel
+                            </h2>
+                            <p className="mt-4 text-lg text-gray-600">
+                                Use these demo credentials to explore the admin dashboard
+                            </p>
+                        </div>
 
-                        <div className="mt-8 rounded-lg bg-white p-6 shadow-md">
-                            <div className="grid gap-4 sm:grid-cols-2">
-                                <div>
+                        <div className="mx-auto mt-12 max-w-xl rounded-lg bg-white p-8 shadow-md">
+                            <div className="grid gap-6 sm:grid-cols-2">
+                                <div className="text-center">
                                     <p className="text-sm font-medium text-gray-500">Email</p>
-                                    <p className="mt-1 font-mono text-lg text-gray-900">admin@example.com</p>
+                                    <p className="mt-1 font-mono text-gray-900">admin@example.com</p>
                                 </div>
-                                <div>
+                                <div className="text-center">
                                     <p className="text-sm font-medium text-gray-500">Password</p>
-                                    <p className="mt-1 font-mono text-lg text-gray-900">password</p>
+                                    <p className="mt-1 font-mono text-gray-900">password</p>
                                 </div>
                             </div>
-                            <div className="mt-6">
+                            <div className="mt-6 text-center">
                                 <Link
                                     href={route('admin.login')}
                                     className="inline-block rounded-md bg-indigo-600 px-6 py-3 text-sm font-semibold text-white hover:bg-indigo-700"
@@ -369,6 +374,90 @@ export default function Welcome({ plans }) {
                                     Go to Admin Login
                                 </Link>
                             </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* API Documentation Section */}
+                <section id="api-docs" className="py-20">
+                    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+                        <div className="text-center">
+                            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+                                API Documentation
+                            </h2>
+                            <p className="mt-4 text-lg text-gray-600">
+                                Download the Postman collection to explore and test all API endpoints
+                            </p>
+                        </div>
+
+                        <div className="mt-12 grid gap-6 sm:grid-cols-2">
+                            <div className="rounded-lg bg-white p-6 shadow-md">
+                                <div className="flex items-center gap-4">
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-100">
+                                        <svg className="h-6 w-6 text-orange-600" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M13.527.099C6.955-.744.942 3.9.099 10.473c-.843 6.572 3.8 12.584 10.373 13.428 6.573.843 12.587-3.801 13.428-10.374C24.744 6.955 20.101.943 13.527.099zm2.471 7.485a.855.855 0 0 0-.593.25l-4.453 4.453-.307-.307-.643-.643c4.389-4.376 5.18-4.418 5.996-3.753zm-4.863 4.861l4.44-4.44a.62.62 0 1 1 .847.903l-4.699 4.125-.588-.588zm.33.694l-1.1.238a.06.06 0 0 1-.067-.082l.392-.855.775.699zm-.498-.65l-.398.869-.73-.657.329-.722.799.51zm-1.086-.137l-.09.198-.226-.202.136-.128.18.132zm-.18-.213l-.132.123-.329-.294a.415.415 0 0 1-.11-.51l.173-.378.398.357-.087.19.087.512zm-.276-.49l.087-.19-.477-.43.128-.058.058-.026.058.052.503.45-.357.202zm.097-.554l.152-.345.267.235-.1.078-.319.032zm.251-.347l.207-.453.123.043.094.033.116.04-.203.444-.337-.107zm.508.184l.209-.457-.21-.073.054-.118.028-.057.214.073.137-.135c.09-.138.208-.211.373-.18l.197.04-.468 1.024-.534-.117zm.753-.146l.478-1.044.318.065.019.004-.485 1.059-.33-.084zm.831.202l.49-1.07.652.133-.489 1.07-.653-.133zm1.164.236l.49-1.07.152.032.115.023.143.029-.49 1.071-.41-.085zm.913.186l.489-1.07.182.037.134.028.095.02-.49 1.069-.41-.084zm.91.186l.49-1.07.32.065-.489 1.071-.321-.066zm.841.172l.355-.777.187.039.107.021.08.017-.355.776-.374-.076z"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold text-gray-900">Postman Collection</h3>
+                                        <p className="text-sm text-gray-500">All API endpoints with examples</p>
+                                    </div>
+                                </div>
+                                <p className="mt-4 text-sm text-gray-600">
+                                    Complete collection with 20+ endpoints including authentication, subscriptions,
+                                    payment methods, invoices, and webhooks.
+                                </p>
+                                <a
+                                    href="/downloads/Laravel_Stripe_SaaS_Billing_API.postman_collection.json"
+                                    download
+                                    className="mt-4 inline-flex items-center gap-2 rounded-md bg-orange-600 px-4 py-2 text-sm font-semibold text-white hover:bg-orange-700"
+                                >
+                                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                    Download Collection
+                                </a>
+                            </div>
+
+                            <div className="rounded-lg bg-white p-6 shadow-md">
+                                <div className="flex items-center gap-4">
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-green-100">
+                                        <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold text-gray-900">Environment File</h3>
+                                        <p className="text-sm text-gray-500">Pre-configured variables</p>
+                                    </div>
+                                </div>
+                                <p className="mt-4 text-sm text-gray-600">
+                                    Environment configuration with base URL and authentication token variables
+                                    for quick setup.
+                                </p>
+                                <a
+                                    href="/downloads/Laravel_Stripe_SaaS_Billing_API.postman_environment.json"
+                                    download
+                                    className="mt-4 inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700"
+                                >
+                                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                    Download Environment
+                                </a>
+                            </div>
+                        </div>
+
+                        <div className="mt-8 rounded-lg bg-gray-50 p-6">
+                            <h4 className="font-semibold text-gray-900">Quick Start</h4>
+                            <ol className="mt-3 list-inside list-decimal space-y-2 text-sm text-gray-600">
+                                <li>Download both files above</li>
+                                <li>Open Postman and click <span className="font-medium">Import</span></li>
+                                <li>Select both JSON files to import</li>
+                                <li>Select the environment from the dropdown (top-right)</li>
+                                <li>Start with <span className="font-medium">Register</span> or <span className="font-medium">Login</span> to get your auth token</li>
+                            </ol>
                         </div>
                     </div>
                 </section>

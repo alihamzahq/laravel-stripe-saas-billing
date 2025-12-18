@@ -1,0 +1,1465 @@
+{
+	"info": {
+		"_postman_id": "laravel-stripe-saas-billing-api",
+		"name": "Laravel Stripe SaaS Billing API",
+		"description": "Complete API collection for Laravel Stripe SaaS Billing System.\n\n## Authentication\nThis API uses Bearer token authentication via Laravel Sanctum. After registering or logging in, include the token in the Authorization header:\n\n```\nAuthorization: Bearer {your-token}\n```\n\n## Base URL\nAll endpoints are prefixed with `/api/v1/`\n\n## Response Format\nAll responses are in JSON format. Successful responses typically include:\n- `message`: A human-readable status message\n- `data` or resource name: The requested resource(s)\n\n## Error Handling\nError responses include:\n- `message`: Error description\n- `error`: Additional error details (when applicable)\n- `errors`: Validation errors object (for 422 responses)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "authToken",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{authToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"description": "User authentication endpoints for registration, login, logout, and profile retrieval.",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "register"]
+						},
+						"description": "Register a new user account.\n\n**Request Body:**\n- `name` (required): User's full name\n- `email` (required): Valid email address\n- `password` (required): Minimum 8 characters\n- `password_confirmation` (required): Must match password"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/register",
+									"host": ["{{baseUrl}}"],
+									"path": ["auth", "register"]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"User registered successfully\",\n    \"user\": {\n        \"id\": 1,\n        \"name\": \"John Doe\",\n        \"email\": \"john@example.com\",\n        \"email_verified_at\": null,\n        \"stripe_id\": null,\n        \"pm_type\": null,\n        \"pm_last_four\": null,\n        \"trial_ends_at\": null,\n        \"has_active_subscription\": false,\n        \"created_at\": \"2025-01-15T10:30:00.000000Z\",\n        \"updated_at\": \"2025-01-15T10:30:00.000000Z\"\n    },\n    \"token\": \"1|abcdef123456789...\"\n}"
+						},
+						{
+							"name": "Validation Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"\",\n    \"email\": \"invalid-email\",\n    \"password\": \"short\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/register",
+									"host": ["{{baseUrl}}"],
+									"path": ["auth", "register"]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"The name field is required. (and 2 more errors)\",\n    \"errors\": {\n        \"name\": [\"The name field is required.\"],\n        \"email\": [\"The email field must be a valid email address.\"],\n        \"password\": [\"The password field must be at least 8 characters.\"]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.token) {",
+									"    pm.collectionVariables.set('authToken', jsonData.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john@example.com\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "login"]
+						},
+						"description": "Authenticate user and receive access token.\n\n**Request Body:**\n- `email` (required): Registered email address\n- `password` (required): User's password\n\n**Note:** The test script automatically saves the token to the collection variable for subsequent requests."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"john@example.com\",\n    \"password\": \"password123\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/login",
+									"host": ["{{baseUrl}}"],
+									"path": ["auth", "login"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"Login successful\",\n    \"user\": {\n        \"id\": 1,\n        \"name\": \"John Doe\",\n        \"email\": \"john@example.com\",\n        \"email_verified_at\": null,\n        \"stripe_id\": \"cus_ABC123\",\n        \"pm_type\": \"visa\",\n        \"pm_last_four\": \"4242\",\n        \"trial_ends_at\": null,\n        \"has_active_subscription\": true,\n        \"created_at\": \"2025-01-15T10:30:00.000000Z\",\n        \"updated_at\": \"2025-01-15T10:30:00.000000Z\"\n    },\n    \"token\": \"2|xyz789abc123...\"\n}"
+						},
+						{
+							"name": "Invalid Credentials",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"john@example.com\",\n    \"password\": \"wrongpassword\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/login",
+									"host": ["{{baseUrl}}"],
+									"path": ["auth", "login"]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"Invalid credentials\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Current User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/auth/me",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "me"]
+						},
+						"description": "Get the currently authenticated user's profile.\n\n**Authentication:** Required"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/auth/me",
+									"host": ["{{baseUrl}}"],
+									"path": ["auth", "me"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"user\": {\n        \"id\": 1,\n        \"name\": \"John Doe\",\n        \"email\": \"john@example.com\",\n        \"email_verified_at\": null,\n        \"stripe_id\": \"cus_ABC123\",\n        \"pm_type\": \"visa\",\n        \"pm_last_four\": \"4242\",\n        \"trial_ends_at\": null,\n        \"has_active_subscription\": true,\n        \"created_at\": \"2025-01-15T10:30:00.000000Z\",\n        \"updated_at\": \"2025-01-15T10:30:00.000000Z\"\n    }\n}"
+						},
+						{
+							"name": "Unauthenticated",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/auth/me",
+									"host": ["{{baseUrl}}"],
+									"path": ["auth", "me"]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"Unauthenticated.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/auth/logout",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "logout"]
+						},
+						"description": "Logout the current user and revoke the access token.\n\n**Authentication:** Required"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/auth/logout",
+									"host": ["{{baseUrl}}"],
+									"path": ["auth", "logout"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"Logged out successfully\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Plans",
+			"description": "Subscription plans endpoints. These are public endpoints that don't require authentication.",
+			"item": [
+				{
+					"name": "List All Plans",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/plans",
+							"host": ["{{baseUrl}}"],
+							"path": ["plans"]
+						},
+						"description": "Get a list of all active subscription plans.\n\n**Authentication:** Not required\n\n**Note:** Only active plans are returned, sorted by `sort_order`."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/plans",
+									"host": ["{{baseUrl}}"],
+									"path": ["plans"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Basic\",\n            \"slug\": \"basic\",\n            \"description\": \"Perfect for individuals and small projects\",\n            \"features\": [\n                \"5 Projects\",\n                \"10 GB Storage\",\n                \"Email Support\",\n                \"Basic Analytics\"\n            ],\n            \"monthly_price\": 999,\n            \"yearly_price\": 9990,\n            \"formatted_monthly_price\": \"$9.99\",\n            \"formatted_yearly_price\": \"$99.90\",\n            \"is_active\": true,\n            \"sort_order\": 1,\n            \"created_at\": \"2025-01-15T10:00:00.000000Z\",\n            \"updated_at\": \"2025-01-15T10:00:00.000000Z\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Pro\",\n            \"slug\": \"pro\",\n            \"description\": \"Great for growing teams and businesses\",\n            \"features\": [\n                \"25 Projects\",\n                \"100 GB Storage\",\n                \"Priority Email Support\",\n                \"Advanced Analytics\",\n                \"API Access\",\n                \"Team Collaboration\"\n            ],\n            \"monthly_price\": 2999,\n            \"yearly_price\": 29990,\n            \"formatted_monthly_price\": \"$29.99\",\n            \"formatted_yearly_price\": \"$299.90\",\n            \"is_active\": true,\n            \"sort_order\": 2,\n            \"created_at\": \"2025-01-15T10:00:00.000000Z\",\n            \"updated_at\": \"2025-01-15T10:00:00.000000Z\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Enterprise\",\n            \"slug\": \"enterprise\",\n            \"description\": \"For large organizations with advanced needs\",\n            \"features\": [\n                \"Unlimited Projects\",\n                \"1 TB Storage\",\n                \"24/7 Phone Support\",\n                \"Custom Analytics\",\n                \"Full API Access\",\n                \"Unlimited Team Members\",\n                \"Dedicated Account Manager\",\n                \"Custom Integrations\"\n            ],\n            \"monthly_price\": 9999,\n            \"yearly_price\": 99990,\n            \"formatted_monthly_price\": \"$99.99\",\n            \"formatted_yearly_price\": \"$999.90\",\n            \"is_active\": true,\n            \"sort_order\": 3,\n            \"created_at\": \"2025-01-15T10:00:00.000000Z\",\n            \"updated_at\": \"2025-01-15T10:00:00.000000Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Single Plan",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/plans/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["plans", "1"]
+						},
+						"description": "Get details of a specific subscription plan.\n\n**Authentication:** Not required\n\n**URL Parameters:**\n- `plan`: Plan ID (integer)"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/plans/1",
+									"host": ["{{baseUrl}}"],
+									"path": ["plans", "1"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"plan\": {\n        \"id\": 1,\n        \"name\": \"Basic\",\n        \"slug\": \"basic\",\n        \"description\": \"Perfect for individuals and small projects\",\n        \"features\": [\n            \"5 Projects\",\n            \"10 GB Storage\",\n            \"Email Support\",\n            \"Basic Analytics\"\n        ],\n        \"monthly_price\": 999,\n        \"yearly_price\": 9990,\n        \"formatted_monthly_price\": \"$9.99\",\n        \"formatted_yearly_price\": \"$99.90\",\n        \"is_active\": true,\n        \"sort_order\": 1,\n        \"created_at\": \"2025-01-15T10:00:00.000000Z\",\n        \"updated_at\": \"2025-01-15T10:00:00.000000Z\"\n    }\n}"
+						},
+						{
+							"name": "Plan Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/plans/999",
+									"host": ["{{baseUrl}}"],
+									"path": ["plans", "999"]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"Plan not found\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Subscriptions",
+			"description": "Subscription management endpoints for creating, viewing, canceling, resuming, and changing subscriptions.",
+			"item": [
+				{
+					"name": "Get My Subscription",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/subscriptions/me",
+							"host": ["{{baseUrl}}"],
+							"path": ["subscriptions", "me"]
+						},
+						"description": "Get the current user's active subscription.\n\n**Authentication:** Required"
+					},
+					"response": [
+						{
+							"name": "Success Response (With Subscription)",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/subscriptions/me",
+									"host": ["{{baseUrl}}"],
+									"path": ["subscriptions", "me"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"subscription\": {\n        \"id\": 1,\n        \"type\": \"default\",\n        \"stripe_id\": \"sub_ABC123\",\n        \"stripe_status\": \"active\",\n        \"stripe_price\": \"price_ABC123\",\n        \"plan_id\": 1,\n        \"payment_method_type\": \"card\",\n        \"quantity\": 1,\n        \"trial_ends_at\": null,\n        \"ends_at\": null,\n        \"is_active\": true,\n        \"is_cancelled\": false,\n        \"is_on_trial\": false,\n        \"is_on_grace_period\": false,\n        \"plan\": {\n            \"id\": 1,\n            \"name\": \"Basic\",\n            \"slug\": \"basic\",\n            \"description\": \"Perfect for individuals and small projects\",\n            \"features\": [\"5 Projects\", \"10 GB Storage\", \"Email Support\", \"Basic Analytics\"],\n            \"monthly_price\": 999,\n            \"yearly_price\": 9990,\n            \"formatted_monthly_price\": \"$9.99\",\n            \"formatted_yearly_price\": \"$99.90\",\n            \"is_active\": true,\n            \"sort_order\": 1,\n            \"created_at\": \"2025-01-15T10:00:00.000000Z\",\n            \"updated_at\": \"2025-01-15T10:00:00.000000Z\"\n        },\n        \"created_at\": \"2025-01-15T10:30:00.000000Z\",\n        \"updated_at\": \"2025-01-15T10:30:00.000000Z\"\n    }\n}"
+						},
+						{
+							"name": "Success Response (No Subscription)",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/subscriptions/me",
+									"host": ["{{baseUrl}}"],
+									"path": ["subscriptions", "me"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"No active subscription found\",\n    \"subscription\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Subscription",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"plan_id\": 1,\n    \"payment_method\": \"pm_card_visa\",\n    \"billing_period\": \"monthly\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/subscriptions",
+							"host": ["{{baseUrl}}"],
+							"path": ["subscriptions"]
+						},
+						"description": "Create a new subscription for the authenticated user.\n\n**Authentication:** Required\n\n**Request Body:**\n- `plan_id` (required): ID of the plan to subscribe to\n- `payment_method` (required): Stripe payment method ID (e.g., `pm_card_visa` for testing)\n- `billing_period` (optional): `monthly` or `yearly` (default: `monthly`)\n\n**Note:** For testing, use Stripe test payment methods like `pm_card_visa`."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"plan_id\": 1,\n    \"payment_method\": \"pm_card_visa\",\n    \"billing_period\": \"monthly\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/subscriptions",
+									"host": ["{{baseUrl}}"],
+									"path": ["subscriptions"]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"Subscription created successfully\",\n    \"subscription\": {\n        \"id\": 1,\n        \"type\": \"default\",\n        \"stripe_id\": \"sub_ABC123\",\n        \"stripe_status\": \"active\",\n        \"stripe_price\": \"price_ABC123\",\n        \"plan_id\": 1,\n        \"payment_method_type\": \"card\",\n        \"quantity\": 1,\n        \"trial_ends_at\": null,\n        \"ends_at\": null,\n        \"is_active\": true,\n        \"is_cancelled\": false,\n        \"is_on_trial\": false,\n        \"is_on_grace_period\": false,\n        \"created_at\": \"2025-01-15T10:30:00.000000Z\",\n        \"updated_at\": \"2025-01-15T10:30:00.000000Z\"\n    }\n}"
+						},
+						{
+							"name": "Already Subscribed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"plan_id\": 1,\n    \"payment_method\": \"pm_card_visa\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/subscriptions",
+									"host": ["{{baseUrl}}"],
+									"path": ["subscriptions"]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"You already have an active subscription. Please cancel or change your plan instead.\"\n}"
+						},
+						{
+							"name": "Plan Not Available",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"plan_id\": 999,\n    \"payment_method\": \"pm_card_visa\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/subscriptions",
+									"host": ["{{baseUrl}}"],
+									"path": ["subscriptions"]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"This plan is not available.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Cancel Subscription",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/subscriptions/cancel",
+							"host": ["{{baseUrl}}"],
+							"path": ["subscriptions", "cancel"]
+						},
+						"description": "Cancel the current user's subscription. The user will retain access until the end of the billing period (grace period).\n\n**Authentication:** Required"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/subscriptions/cancel",
+									"host": ["{{baseUrl}}"],
+									"path": ["subscriptions", "cancel"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"Subscription cancelled successfully. You will have access until the end of your billing period.\",\n    \"subscription\": {\n        \"id\": 1,\n        \"type\": \"default\",\n        \"stripe_id\": \"sub_ABC123\",\n        \"stripe_status\": \"active\",\n        \"stripe_price\": \"price_ABC123\",\n        \"plan_id\": 1,\n        \"payment_method_type\": \"card\",\n        \"quantity\": 1,\n        \"trial_ends_at\": null,\n        \"ends_at\": \"2025-02-15T10:30:00.000000Z\",\n        \"is_active\": true,\n        \"is_cancelled\": true,\n        \"is_on_trial\": false,\n        \"is_on_grace_period\": true,\n        \"created_at\": \"2025-01-15T10:30:00.000000Z\",\n        \"updated_at\": \"2025-01-15T11:00:00.000000Z\"\n    }\n}"
+						},
+						{
+							"name": "No Subscription",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/subscriptions/cancel",
+									"host": ["{{baseUrl}}"],
+									"path": ["subscriptions", "cancel"]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"No active subscription to cancel\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Resume Subscription",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/subscriptions/resume",
+							"host": ["{{baseUrl}}"],
+							"path": ["subscriptions", "resume"]
+						},
+						"description": "Resume a cancelled subscription that is still within its grace period.\n\n**Authentication:** Required\n\n**Note:** Can only resume subscriptions that have been cancelled but haven't reached their end date yet."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/subscriptions/resume",
+									"host": ["{{baseUrl}}"],
+									"path": ["subscriptions", "resume"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"Subscription resumed successfully\",\n    \"subscription\": {\n        \"id\": 1,\n        \"type\": \"default\",\n        \"stripe_id\": \"sub_ABC123\",\n        \"stripe_status\": \"active\",\n        \"stripe_price\": \"price_ABC123\",\n        \"plan_id\": 1,\n        \"payment_method_type\": \"card\",\n        \"quantity\": 1,\n        \"trial_ends_at\": null,\n        \"ends_at\": null,\n        \"is_active\": true,\n        \"is_cancelled\": false,\n        \"is_on_trial\": false,\n        \"is_on_grace_period\": false,\n        \"created_at\": \"2025-01-15T10:30:00.000000Z\",\n        \"updated_at\": \"2025-01-15T11:30:00.000000Z\"\n    }\n}"
+						},
+						{
+							"name": "Cannot Resume",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/subscriptions/resume",
+									"host": ["{{baseUrl}}"],
+									"path": ["subscriptions", "resume"]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"No subscription to resume or subscription is not on grace period\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Change Plan",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"plan_id\": 2,\n    \"billing_period\": \"monthly\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/subscriptions/change-plan",
+							"host": ["{{baseUrl}}"],
+							"path": ["subscriptions", "change-plan"]
+						},
+						"description": "Change the current subscription to a different plan (upgrade or downgrade).\n\n**Authentication:** Required\n\n**Request Body:**\n- `plan_id` (required): ID of the new plan\n- `billing_period` (optional): `monthly` or `yearly` (default: `monthly`)\n\n**Note:** Prorated charges or credits will be applied automatically by Stripe."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"plan_id\": 2,\n    \"billing_period\": \"monthly\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/subscriptions/change-plan",
+									"host": ["{{baseUrl}}"],
+									"path": ["subscriptions", "change-plan"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"Plan changed successfully\",\n    \"subscription\": {\n        \"id\": 1,\n        \"type\": \"default\",\n        \"stripe_id\": \"sub_ABC123\",\n        \"stripe_status\": \"active\",\n        \"stripe_price\": \"price_XYZ789\",\n        \"plan_id\": 2,\n        \"payment_method_type\": \"card\",\n        \"quantity\": 1,\n        \"trial_ends_at\": null,\n        \"ends_at\": null,\n        \"is_active\": true,\n        \"is_cancelled\": false,\n        \"is_on_trial\": false,\n        \"is_on_grace_period\": false,\n        \"created_at\": \"2025-01-15T10:30:00.000000Z\",\n        \"updated_at\": \"2025-01-15T12:00:00.000000Z\"\n    }\n}"
+						},
+						{
+							"name": "No Subscription",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"plan_id\": 2\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/subscriptions/change-plan",
+									"host": ["{{baseUrl}}"],
+									"path": ["subscriptions", "change-plan"]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"No active subscription to change\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Payment Methods",
+			"description": "Payment method management endpoints for adding, listing, removing, and setting default payment methods.",
+			"item": [
+				{
+					"name": "Create Setup Intent",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/setup-intent",
+							"host": ["{{baseUrl}}"],
+							"path": ["setup-intent"]
+						},
+						"description": "Create a Stripe SetupIntent for securely collecting payment method details on the frontend.\n\n**Authentication:** Required\n\n**Usage:** Use the returned `client_secret` with Stripe.js to collect card details securely."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/setup-intent",
+									"host": ["{{baseUrl}}"],
+									"path": ["setup-intent"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"client_secret\": \"seti_1ABC123_secret_XYZ789\"\n}"
+						}
+					]
+				},
+				{
+					"name": "List Payment Methods",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/payment-methods",
+							"host": ["{{baseUrl}}"],
+							"path": ["payment-methods"]
+						},
+						"description": "Get all payment methods associated with the authenticated user.\n\n**Authentication:** Required"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/payment-methods",
+									"host": ["{{baseUrl}}"],
+									"path": ["payment-methods"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": \"pm_ABC123\",\n            \"type\": \"card\",\n            \"brand\": \"visa\",\n            \"last_four\": \"4242\",\n            \"exp_month\": 12,\n            \"exp_year\": 2025,\n            \"is_default\": true\n        },\n        {\n            \"id\": \"pm_XYZ789\",\n            \"type\": \"card\",\n            \"brand\": \"mastercard\",\n            \"last_four\": \"5555\",\n            \"exp_month\": 6,\n            \"exp_year\": 2026,\n            \"is_default\": false\n        }\n    ]\n}"
+						},
+						{
+							"name": "Empty Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/payment-methods",
+									"host": ["{{baseUrl}}"],
+									"path": ["payment-methods"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"data\": []\n}"
+						}
+					]
+				},
+				{
+					"name": "Add Payment Method",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"pm_card_visa\",\n    \"card_holder_name\": \"John Doe\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/payment-methods",
+							"host": ["{{baseUrl}}"],
+							"path": ["payment-methods"]
+						},
+						"description": "Add a new payment method to the user's account.\n\n**Authentication:** Required\n\n**Request Body:**\n- `token` (required): Stripe payment method ID or token\n- `card_holder_name` (required): Name on the card\n\n**Note:** For testing, use Stripe test tokens like `pm_card_visa`."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"token\": \"pm_card_visa\",\n    \"card_holder_name\": \"John Doe\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/payment-methods",
+									"host": ["{{baseUrl}}"],
+									"path": ["payment-methods"]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"Payment method added successfully\",\n    \"payment_method\": {\n        \"id\": \"pm_NEW123\",\n        \"type\": \"card\",\n        \"brand\": \"visa\",\n        \"last_four\": \"4242\",\n        \"exp_month\": 12,\n        \"exp_year\": 2025,\n        \"is_default\": false\n    }\n}"
+						},
+						{
+							"name": "Validation Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"token\": \"\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/payment-methods",
+									"host": ["{{baseUrl}}"],
+									"path": ["payment-methods"]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"The token field is required. (and 1 more error)\",\n    \"errors\": {\n        \"token\": [\"The token field is required.\"],\n        \"card_holder_name\": [\"The card holder name field is required.\"]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Set Default Payment Method",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"payment_method_id\": \"pm_ABC123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/payment-methods/set-default",
+							"host": ["{{baseUrl}}"],
+							"path": ["payment-methods", "set-default"]
+						},
+						"description": "Set a payment method as the user's default for future charges.\n\n**Authentication:** Required\n\n**Request Body:**\n- `payment_method_id` (required): The ID of the payment method to set as default"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"payment_method_id\": \"pm_ABC123\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/payment-methods/set-default",
+									"host": ["{{baseUrl}}"],
+									"path": ["payment-methods", "set-default"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"Default payment method updated successfully\"\n}"
+						},
+						{
+							"name": "Payment Method Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"payment_method_id\": \"pm_INVALID\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/payment-methods/set-default",
+									"host": ["{{baseUrl}}"],
+									"path": ["payment-methods", "set-default"]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"Payment method not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Payment Method",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/payment-methods/pm_ABC123",
+							"host": ["{{baseUrl}}"],
+							"path": ["payment-methods", "pm_ABC123"]
+						},
+						"description": "Remove a payment method from the user's account.\n\n**Authentication:** Required\n\n**URL Parameters:**\n- `payment_method`: The Stripe payment method ID to delete"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/payment-methods/pm_ABC123",
+									"host": ["{{baseUrl}}"],
+									"path": ["payment-methods", "pm_ABC123"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"Payment method removed successfully\"\n}"
+						},
+						{
+							"name": "Payment Method Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/payment-methods/pm_INVALID",
+									"host": ["{{baseUrl}}"],
+									"path": ["payment-methods", "pm_INVALID"]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"Payment method not found\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Invoices",
+			"description": "Invoice management endpoints for viewing invoice history and downloading PDFs.",
+			"item": [
+				{
+					"name": "List Invoices",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/invoices?include_pending=false",
+							"host": ["{{baseUrl}}"],
+							"path": ["invoices"],
+							"query": [
+								{
+									"key": "include_pending",
+									"value": "false",
+									"description": "Include pending invoices (default: false)"
+								}
+							]
+						},
+						"description": "Get a list of all invoices for the authenticated user.\n\n**Authentication:** Required\n\n**Query Parameters:**\n- `include_pending` (optional): Boolean to include pending invoices (default: `false`)"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/invoices",
+									"host": ["{{baseUrl}}"],
+									"path": ["invoices"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": \"in_ABC123\",\n            \"number\": \"INV-0001\",\n            \"status\": \"paid\",\n            \"total\": \"$9.99\",\n            \"subtotal\": \"$9.99\",\n            \"tax\": \"$0.00\",\n            \"currency\": \"usd\",\n            \"date\": \"2025-01-15T00:00:00+00:00\",\n            \"due_date\": \"2025-01-15T00:00:00+00:00\",\n            \"paid_at\": \"2025-01-15T10:30:00+00:00\",\n            \"invoice_pdf\": \"https://pay.stripe.com/invoice/acct_123/test_456/pdf\",\n            \"hosted_invoice_url\": \"https://invoice.stripe.com/i/acct_123/test_456\",\n            \"lines\": [\n                {\n                    \"description\": \"Basic Plan (Monthly)\",\n                    \"quantity\": 1,\n                    \"amount\": 999,\n                    \"currency\": \"usd\"\n                }\n            ]\n        },\n        {\n            \"id\": \"in_XYZ789\",\n            \"number\": \"INV-0002\",\n            \"status\": \"paid\",\n            \"total\": \"$29.99\",\n            \"subtotal\": \"$29.99\",\n            \"tax\": \"$0.00\",\n            \"currency\": \"usd\",\n            \"date\": \"2025-02-15T00:00:00+00:00\",\n            \"due_date\": \"2025-02-15T00:00:00+00:00\",\n            \"paid_at\": \"2025-02-15T10:30:00+00:00\",\n            \"invoice_pdf\": \"https://pay.stripe.com/invoice/acct_123/test_789/pdf\",\n            \"hosted_invoice_url\": \"https://invoice.stripe.com/i/acct_123/test_789\",\n            \"lines\": [\n                {\n                    \"description\": \"Pro Plan (Monthly)\",\n                    \"quantity\": 1,\n                    \"amount\": 2999,\n                    \"currency\": \"usd\"\n                }\n            ]\n        }\n    ]\n}"
+						},
+						{
+							"name": "Empty Response (No Stripe Customer)",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/invoices",
+									"host": ["{{baseUrl}}"],
+									"path": ["invoices"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"data\": []\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Single Invoice",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/invoices/in_ABC123",
+							"host": ["{{baseUrl}}"],
+							"path": ["invoices", "in_ABC123"]
+						},
+						"description": "Get details of a specific invoice.\n\n**Authentication:** Required\n\n**URL Parameters:**\n- `invoice`: Stripe invoice ID"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/invoices/in_ABC123",
+									"host": ["{{baseUrl}}"],
+									"path": ["invoices", "in_ABC123"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"invoice\": {\n        \"id\": \"in_ABC123\",\n        \"number\": \"INV-0001\",\n        \"status\": \"paid\",\n        \"total\": \"$9.99\",\n        \"subtotal\": \"$9.99\",\n        \"tax\": \"$0.00\",\n        \"currency\": \"usd\",\n        \"date\": \"2025-01-15T00:00:00+00:00\",\n        \"due_date\": \"2025-01-15T00:00:00+00:00\",\n        \"paid_at\": \"2025-01-15T10:30:00+00:00\",\n        \"invoice_pdf\": \"https://pay.stripe.com/invoice/acct_123/test_456/pdf\",\n        \"hosted_invoice_url\": \"https://invoice.stripe.com/i/acct_123/test_456\",\n        \"lines\": [\n            {\n                \"description\": \"Basic Plan (Monthly)\",\n                \"quantity\": 1,\n                \"amount\": 999,\n                \"currency\": \"usd\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Invoice Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/invoices/in_INVALID",
+									"host": ["{{baseUrl}}"],
+									"path": ["invoices", "in_INVALID"]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"Invoice not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Download Invoice PDF",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/pdf"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/invoices/in_ABC123/download",
+							"host": ["{{baseUrl}}"],
+							"path": ["invoices", "in_ABC123", "download"]
+						},
+						"description": "Download an invoice as a PDF file.\n\n**Authentication:** Required\n\n**URL Parameters:**\n- `invoice`: Stripe invoice ID\n\n**Response:** Binary PDF file with `Content-Type: application/pdf`"
+					},
+					"response": [
+						{
+							"name": "Success Response (PDF)",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/invoices/in_ABC123/download",
+									"host": ["{{baseUrl}}"],
+									"path": ["invoices", "in_ABC123", "download"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/pdf"
+								},
+								{
+									"key": "Content-Disposition",
+									"value": "attachment; filename=\"invoice.pdf\""
+								}
+							],
+							"body": "[Binary PDF Content]"
+						},
+						{
+							"name": "Invoice Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/invoices/in_INVALID/download",
+									"host": ["{{baseUrl}}"],
+									"path": ["invoices", "in_INVALID", "download"]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"Invoice not found\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Webhook",
+			"description": "Stripe webhook endpoint for handling payment events.",
+			"item": [
+				{
+					"name": "Stripe Webhook",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Stripe-Signature",
+								"value": "t=1234567890,v1=abc123...",
+								"description": "Stripe webhook signature"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"evt_ABC123\",\n    \"object\": \"event\",\n    \"type\": \"customer.subscription.created\",\n    \"data\": {\n        \"object\": {\n            \"id\": \"sub_ABC123\",\n            \"customer\": \"cus_ABC123\",\n            \"status\": \"active\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/webhook/stripe",
+							"host": ["{{baseUrl}}"],
+							"path": ["webhook", "stripe"]
+						},
+						"description": "Endpoint for receiving Stripe webhook events.\n\n**Authentication:** Uses Stripe signature verification (not Bearer token)\n\n**Headers:**\n- `Stripe-Signature` (required): Signature provided by Stripe\n\n**Handled Events:**\n- `customer.subscription.created`\n- `customer.subscription.updated`\n- `customer.subscription.deleted`\n- `invoice.paid`\n- `invoice.payment_failed`\n- `customer.updated`\n- `payment_method.attached`\n- `payment_method.detached`\n\n**Note:** This endpoint should not be called manually. It's designed to receive events from Stripe."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Stripe-Signature",
+										"value": "t=1234567890,v1=abc123..."
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{...}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/webhook/stripe",
+									"host": ["{{baseUrl}}"],
+									"path": ["webhook", "stripe"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"body": "Webhook handled"
+						},
+						{
+							"name": "Invalid Signature",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Stripe-Signature",
+										"value": "invalid"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{...}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/webhook/stripe",
+									"host": ["{{baseUrl}}"],
+									"path": ["webhook", "stripe"]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"Invalid signature\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
