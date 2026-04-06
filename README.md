@@ -10,24 +10,44 @@ A complete, production-ready SaaS subscription billing system built with Laravel
 ## Screenshots
 
 ### Landing Page
-![Landing Page](screenshots/landing-page.png)
-*Modern landing page with pricing plans, tech stack, and API documentation downloads*
+![Hero Section](screenshots/01-hero-section.png)
+*Modern landing page with subscription billing platform overview*
 
-### Admin Dashboard
-![Admin Dashboard](screenshots/admin-dashboard.png)
-*Dashboard overview with key metrics and recent activity*
+![Pricing Section](screenshots/02-pricing-section.png)
+*Flexible pricing plans with monthly/yearly billing toggle*
 
-### Plans Management
-![Plans Management](screenshots/admin-plans.png)
-*Full CRUD interface for subscription plans with Stripe synchronization*
+### Admin Panel
 
-### Subscriptions Management
-![Subscriptions](screenshots/admin-subscriptions.png)
-*View and manage all customer subscriptions*
+![Admin Dashboard](screenshots/03-admin-dashboard.png)
+*Dashboard with key metrics — total users, active subscriptions, revenue, and recent payments*
 
-### Users Management
-![Users](screenshots/admin-users.png)
-*User management with payment history*
+![Plans Management](screenshots/04-admin-plans.png)
+*Manage subscription plans with Stripe synchronization*
+
+![Users Management](screenshots/05-admin-users.png)
+*User management with plan and subscription status overview*
+
+![User Details](screenshots/06-admin-user-detail.png)
+*Detailed user view with subscription info and payment history*
+
+![Subscriptions](screenshots/07-admin-subscriptions.png)
+*Subscription management with status filtering (active, canceled, trialing)*
+
+![Subscription Details](screenshots/10-subscription-details.png)
+*Subscription details with cancel and refund actions*
+
+### Activity Logs
+
+![Webhook Logs](screenshots/08-webhook-logs.png)
+*Stripe webhook event logs with status and date filters*
+
+![Payment Logs](screenshots/09-payment-logs.png)
+*Payment transaction logs with action and status tracking*
+
+### Authentication
+
+![Admin Login](screenshots/11-admin-login.png)
+*Clean admin authentication page*
 
 ## Features
 
