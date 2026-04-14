@@ -1,11 +1,13 @@
-# Laravel Stripe SaaS Billing
-
-A complete, production-ready SaaS subscription billing system built with Laravel 12, Stripe, and React. This project demonstrates a full-stack implementation of subscription management with both an API-first architecture and an admin dashboard.
-
+![CI](https://github.com/alihamzahq/laravel-stripe-saas-billing/actions/workflows/ci.yml/badge.svg)
+![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=flat-square&logo=php&logoColor=white)
 ![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?style=flat-square&logo=laravel&logoColor=white)
 ![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black)
 ![Stripe](https://img.shields.io/badge/Stripe-Integrated-635BFF?style=flat-square&logo=stripe&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
+
+# Laravel Stripe SaaS Billing
+
+A complete, production-ready SaaS subscription billing system built with Laravel 12, Stripe, and React. This project demonstrates a full-stack implementation of subscription management with both an API-first architecture and an admin dashboard.
 
 ## Screenshots
 
@@ -98,7 +100,7 @@ A complete, production-ready SaaS subscription billing system built with Laravel
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/laravel-stripe-saas-billing.git
+   git clone https://github.com/alihamzahq/laravel-stripe-saas-billing.git
    cd laravel-stripe-saas-billing
    ```
 
