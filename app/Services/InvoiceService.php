@@ -13,7 +13,7 @@ class InvoiceService
      */
     public function getInvoices(User $user, bool $includePending = false): Collection
     {
-        if (!$user->hasStripeId()) {
+        if (! $user->hasStripeId()) {
             return collect([]);
         }
 
@@ -25,7 +25,7 @@ class InvoiceService
      */
     public function getInvoice(User $user, string $invoiceId): ?Invoice
     {
-        if (!$user->hasStripeId()) {
+        if (! $user->hasStripeId()) {
             return null;
         }
 
@@ -37,13 +37,13 @@ class InvoiceService
      */
     public function downloadInvoice(User $user, string $invoiceId, array $data = []): mixed
     {
-        if (!$user->hasStripeId()) {
+        if (! $user->hasStripeId()) {
             return null;
         }
 
         $invoice = $user->findInvoice($invoiceId);
 
-        if (!$invoice) {
+        if (! $invoice) {
             return null;
         }
 

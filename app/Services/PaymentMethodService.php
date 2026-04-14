@@ -3,9 +3,9 @@
 namespace App\Services;
 
 use App\Models\User;
+use Illuminate\Support\Collection;
 use Laravel\Cashier\Cashier;
 use Laravel\Cashier\PaymentMethod;
-use Illuminate\Support\Collection;
 
 class PaymentMethodService
 {
@@ -14,7 +14,7 @@ class PaymentMethodService
      */
     public function getPaymentMethods(User $user): Collection
     {
-        if (!$user->hasStripeId()) {
+        if (! $user->hasStripeId()) {
             return collect([]);
         }
 
@@ -22,6 +22,7 @@ class PaymentMethodService
 
         return $user->paymentMethods()->map(function ($paymentMethod) use ($defaultPaymentMethodId) {
             $paymentMethod->is_default = $paymentMethod->id === $defaultPaymentMethodId;
+
             return $paymentMethod;
         });
     }
@@ -32,7 +33,7 @@ class PaymentMethodService
     public function addPaymentMethod(User $user, string $token, string $cardHolderName): PaymentMethod
     {
         // Create Stripe customer if not exists
-        if (!$user->hasStripeId()) {
+        if (! $user->hasStripeId()) {
             $user->createAsStripeCustomer();
         }
 
@@ -63,13 +64,13 @@ class PaymentMethodService
      */
     public function removePaymentMethod(User $user, string $paymentMethodId): bool
     {
-        if (!$user->hasStripeId()) {
+        if (! $user->hasStripeId()) {
             return false;
         }
 
         $paymentMethod = $user->findPaymentMethod($paymentMethodId);
 
-        if (!$paymentMethod) {
+        if (! $paymentMethod) {
             return false;
         }
 
@@ -83,13 +84,13 @@ class PaymentMethodService
      */
     public function setDefaultPaymentMethod(User $user, string $paymentMethodId): bool
     {
-        if (!$user->hasStripeId()) {
+        if (! $user->hasStripeId()) {
             return false;
         }
 
         $paymentMethod = $user->findPaymentMethod($paymentMethodId);
 
-        if (!$paymentMethod) {
+        if (! $paymentMethod) {
             return false;
         }
 
@@ -104,7 +105,7 @@ class PaymentMethodService
     public function createSetupIntent(User $user): string
     {
         // Create Stripe customer if not exists
-        if (!$user->hasStripeId()) {
+        if (! $user->hasStripeId()) {
             $user->createAsStripeCustomer();
         }
 
@@ -120,6 +121,7 @@ class PaymentMethodService
     {
         try {
             $customer = Cashier::stripe()->customers->retrieve($user->stripe_id);
+
             return $customer->invoice_settings->default_payment_method ?? null;
         } catch (\Exception $e) {
             return null;

@@ -17,9 +17,6 @@ class PlanService
 
     /**
      * Create a new plan with Stripe product and prices.
-     *
-     * @param array $data
-     * @return Plan
      */
     public function create(array $data): Plan
     {
@@ -63,10 +60,6 @@ class PlanService
 
     /**
      * Update an existing plan.
-     *
-     * @param Plan $plan
-     * @param array $data
-     * @return Plan
      */
     public function update(Plan $plan, array $data): Plan
     {
@@ -118,9 +111,6 @@ class PlanService
 
     /**
      * Delete (archive) a plan.
-     *
-     * @param Plan $plan
-     * @return bool
      */
     public function delete(Plan $plan): bool
     {
@@ -148,13 +138,10 @@ class PlanService
 
     /**
      * Toggle plan active status.
-     *
-     * @param Plan $plan
-     * @return Plan
      */
     public function toggleActive(Plan $plan): Plan
     {
-        $newStatus = !$plan->is_active;
+        $newStatus = ! $plan->is_active;
 
         // Update Stripe product status
         $this->stripe->products->update($plan->stripe_product_id, [

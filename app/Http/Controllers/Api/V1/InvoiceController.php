@@ -22,7 +22,7 @@ class InvoiceController extends Controller
     {
         $user = $request->user();
 
-        if (!$user->hasStripeId()) {
+        if (! $user->hasStripeId()) {
             return response()->json([
                 'data' => [],
             ]);
@@ -45,7 +45,7 @@ class InvoiceController extends Controller
 
         $invoiceData = $this->invoiceService->getInvoice($user, $invoice);
 
-        if (!$invoiceData) {
+        if (! $invoiceData) {
             return response()->json([
                 'message' => 'Invoice not found',
             ], 404);
@@ -68,7 +68,7 @@ class InvoiceController extends Controller
             'product' => 'Subscription',
         ]);
 
-        if (!$response) {
+        if (! $response) {
             return response()->json([
                 'message' => 'Invoice not found',
             ], 404);

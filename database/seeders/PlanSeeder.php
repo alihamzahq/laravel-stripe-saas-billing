@@ -71,7 +71,7 @@ class PlanSeeder extends Seeder
 
         foreach ($plans as $planData) {
             // Check if plan already exists
-            if (!Plan::where('slug', $planData['slug'])->exists()) {
+            if (! Plan::where('slug', $planData['slug'])->exists()) {
                 $planService->create($planData);
                 $this->command->info("Created plan: {$planData['name']}");
             } else {

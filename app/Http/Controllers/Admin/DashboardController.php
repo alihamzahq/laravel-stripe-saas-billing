@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\PaymentLog;
 use App\Models\Plan;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 use Laravel\Cashier\Subscription;

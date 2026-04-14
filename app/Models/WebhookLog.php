@@ -27,7 +27,9 @@ class WebhookLog extends Model
      * Status constants.
      */
     public const STATUS_RECEIVED = 'received';
+
     public const STATUS_PROCESSED = 'processed';
+
     public const STATUS_FAILED = 'failed';
 
     /**

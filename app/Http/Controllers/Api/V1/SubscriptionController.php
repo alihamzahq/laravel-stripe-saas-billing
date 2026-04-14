@@ -32,7 +32,7 @@ class SubscriptionController extends Controller
 
         $plan = Plan::findOrFail($request->plan_id);
 
-        if (!$plan->is_active) {
+        if (! $plan->is_active) {
             return response()->json([
                 'message' => 'This plan is not available.',
             ], 422);
@@ -68,7 +68,7 @@ class SubscriptionController extends Controller
     {
         $subscription = $this->subscriptionService->getSubscription($request->user());
 
-        if (!$subscription) {
+        if (! $subscription) {
             return response()->json([
                 'message' => 'No active subscription found',
                 'subscription' => null,
@@ -87,7 +87,7 @@ class SubscriptionController extends Controller
     {
         $subscription = $this->subscriptionService->cancel($request->user());
 
-        if (!$subscription) {
+        if (! $subscription) {
             return response()->json([
                 'message' => 'No active subscription to cancel',
             ], 422);
@@ -106,7 +106,7 @@ class SubscriptionController extends Controller
     {
         $subscription = $this->subscriptionService->resume($request->user());
 
-        if (!$subscription) {
+        if (! $subscription) {
             return response()->json([
                 'message' => 'No subscription to resume or subscription is not on grace period',
             ], 422);
@@ -130,7 +130,7 @@ class SubscriptionController extends Controller
 
         $plan = Plan::findOrFail($request->plan_id);
 
-        if (!$plan->is_active) {
+        if (! $plan->is_active) {
             return response()->json([
                 'message' => 'This plan is not available.',
             ], 422);
@@ -143,7 +143,7 @@ class SubscriptionController extends Controller
                 billingPeriod: $request->billing_period ?? 'monthly'
             );
 
-            if (!$subscription) {
+            if (! $subscription) {
                 return response()->json([
                     'message' => 'No active subscription to change',
                 ], 422);

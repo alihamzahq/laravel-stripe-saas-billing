@@ -13,12 +13,9 @@ class SubscriptionService
     /**
      * Create a new subscription for a user.
      *
-     * @param User $user
-     * @param Plan $plan
-     * @param string $paymentMethod 'card' or 'bank_transfer'
-     * @param string $billingPeriod 'monthly' or 'yearly'
-     * @param array $options Additional options (e.g., payment_method_id for card)
-     * @return Subscription
+     * @param  string  $paymentMethod  'card' or 'bank_transfer'
+     * @param  string  $billingPeriod  'monthly' or 'yearly'
+     * @param  array  $options  Additional options (e.g., payment_method_id for card)
      */
     public function create(
         User $user,
@@ -29,7 +26,7 @@ class SubscriptionService
     ): Subscription {
         $priceId = $plan->getPriceId($billingPeriod);
 
-        if (!$priceId) {
+        if (! $priceId) {
             throw new \InvalidArgumentException("No Stripe price ID configured for {$billingPeriod} billing");
         }
 
@@ -62,15 +59,12 @@ class SubscriptionService
 
     /**
      * Cancel a user's subscription.
-     *
-     * @param User $user
-     * @return Subscription|null
      */
     public function cancel(User $user): ?Subscription
     {
         $subscription = $user->subscription('default');
 
-        if (!$subscription) {
+        if (! $subscription) {
             return null;
         }
 
@@ -93,15 +87,12 @@ class SubscriptionService
 
     /**
      * Resume a cancelled subscription.
-     *
-     * @param User $user
-     * @return Subscription|null
      */
     public function resume(User $user): ?Subscription
     {
         $subscription = $user->subscription('default');
 
-        if (!$subscription || !$subscription->onGracePeriod()) {
+        if (! $subscription || ! $subscription->onGracePeriod()) {
             return null;
         }
 
@@ -124,23 +115,20 @@ class SubscriptionService
     /**
      * Change the user's subscription plan.
      *
-     * @param User $user
-     * @param Plan $newPlan
-     * @param string $billingPeriod 'monthly' or 'yearly'
-     * @return Subscription|null
+     * @param  string  $billingPeriod  'monthly' or 'yearly'
      */
     public function changePlan(User $user, Plan $newPlan, string $billingPeriod = 'monthly'): ?Subscription
     {
         $subscription = $user->subscription('default');
 
-        if (!$subscription) {
+        if (! $subscription) {
             return null;
         }
 
         $oldPlanId = $subscription->plan_id;
         $newPriceId = $newPlan->getPriceId($billingPeriod);
 
-        if (!$newPriceId) {
+        if (! $newPriceId) {
             throw new \InvalidArgumentException("No Stripe price ID configured for {$billingPeriod} billing");
         }
 
@@ -171,9 +159,6 @@ class SubscriptionService
 
     /**
      * Get the user's current subscription.
-     *
-     * @param User $user
-     * @return Subscription|null
      */
     public function getSubscription(User $user): ?Subscription
     {
@@ -183,9 +168,7 @@ class SubscriptionService
     /**
      * Refund a subscription payment.
      *
-     * @param Subscription $subscription
-     * @param int|null $amount Amount in cents (null for full refund)
-     * @return bool
+     * @param  int|null  $amount  Amount in cents (null for full refund)
      */
     public function refund(Subscription $subscription, ?int $amount = null): bool
     {
@@ -194,7 +177,7 @@ class SubscriptionService
         // Get the latest invoice for this subscription
         $latestInvoice = $user->invoices()->first();
 
-        if (!$latestInvoice) {
+        if (! $latestInvoice) {
             return false;
         }
 

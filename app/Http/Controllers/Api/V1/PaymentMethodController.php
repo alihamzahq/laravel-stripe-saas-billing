@@ -62,7 +62,7 @@ class PaymentMethodController extends Controller
         try {
             $removed = $this->paymentMethodService->removePaymentMethod($request->user(), $payment_method);
 
-            if (!$removed) {
+            if (! $removed) {
                 return response()->json([
                     'message' => 'Payment method not found',
                 ], 404);
@@ -113,7 +113,7 @@ class PaymentMethodController extends Controller
                 $request->payment_method_id
             );
 
-            if (!$updated) {
+            if (! $updated) {
                 return response()->json([
                     'message' => 'Payment method not found',
                 ], 404);

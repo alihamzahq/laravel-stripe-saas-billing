@@ -11,16 +11,14 @@ class CardPaymentHandler implements PaymentMethodInterface
     /**
      * Create a subscription using card payment method.
      *
-     * @param User $user
-     * @param string $priceId Stripe price ID
-     * @param array $options Must contain 'payment_method_id'
-     * @return Subscription
+     * @param  string  $priceId  Stripe price ID
+     * @param  array  $options  Must contain 'payment_method_id'
      */
     public function createSubscription(User $user, string $priceId, array $options = []): Subscription
     {
         $paymentMethodId = $options['payment_method_id'] ?? null;
 
-        if (!$paymentMethodId) {
+        if (! $paymentMethodId) {
             throw new \InvalidArgumentException('Payment method ID is required for card payments');
         }
 
@@ -30,8 +28,6 @@ class CardPaymentHandler implements PaymentMethodInterface
 
     /**
      * Get the payment method type identifier.
-     *
-     * @return string
      */
     public function getType(): string
     {

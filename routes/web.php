@@ -12,13 +12,13 @@ Route::get('/downloads/{file}', function (string $file) {
         'Laravel_Stripe_SaaS_Billing_API.postman_environment.json',
     ];
 
-    if (!in_array($file, $allowedFiles)) {
+    if (! in_array($file, $allowedFiles)) {
         abort(404);
     }
 
     $path = public_path("downloads/{$file}");
 
-    if (!file_exists($path)) {
+    if (! file_exists($path)) {
         abort(404);
     }
 

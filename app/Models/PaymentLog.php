@@ -31,23 +31,31 @@ class PaymentLog extends Model
      * Action constants.
      */
     public const ACTION_SUBSCRIBE = 'subscribe';
+
     public const ACTION_CANCEL = 'cancel';
+
     public const ACTION_RESUME = 'resume';
+
     public const ACTION_CHANGE_PLAN = 'change_plan';
+
     public const ACTION_REFUND = 'refund';
+
     public const ACTION_PAYMENT_FAILED = 'payment_failed';
 
     /**
      * Status constants.
      */
     public const STATUS_SUCCESS = 'success';
+
     public const STATUS_FAILED = 'failed';
+
     public const STATUS_PENDING = 'pending';
 
     /**
      * Payment method constants.
      */
     public const PAYMENT_METHOD_CARD = 'card';
+
     public const PAYMENT_METHOD_BANK_TRANSFER = 'bank_transfer';
 
     /**
@@ -115,7 +123,7 @@ class PaymentLog extends Model
             return null;
         }
 
-        return '$' . number_format($this->amount / 100, 2);
+        return '$'.number_format($this->amount / 100, 2);
     }
 
     /**

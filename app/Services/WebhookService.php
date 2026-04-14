@@ -32,8 +32,9 @@ class WebhookService
         $invoice = $event->data->object;
         $user = $this->getUserByStripeId($invoice->customer);
 
-        if (!$user) {
-            $log->markAsFailed('User not found for customer: ' . $invoice->customer);
+        if (! $user) {
+            $log->markAsFailed('User not found for customer: '.$invoice->customer);
+
             return;
         }
 
@@ -64,8 +65,9 @@ class WebhookService
         $invoice = $event->data->object;
         $user = $this->getUserByStripeId($invoice->customer);
 
-        if (!$user) {
-            $log->markAsFailed('User not found for customer: ' . $invoice->customer);
+        if (! $user) {
+            $log->markAsFailed('User not found for customer: '.$invoice->customer);
+
             return;
         }
 
@@ -96,8 +98,9 @@ class WebhookService
         $stripeSubscription = $event->data->object;
         $user = $this->getUserByStripeId($stripeSubscription->customer);
 
-        if (!$user) {
-            $log->markAsFailed('User not found for customer: ' . $stripeSubscription->customer);
+        if (! $user) {
+            $log->markAsFailed('User not found for customer: '.$stripeSubscription->customer);
+
             return;
         }
 
@@ -123,8 +126,9 @@ class WebhookService
         $stripeSubscription = $event->data->object;
         $user = $this->getUserByStripeId($stripeSubscription->customer);
 
-        if (!$user) {
-            $log->markAsFailed('User not found for customer: ' . $stripeSubscription->customer);
+        if (! $user) {
+            $log->markAsFailed('User not found for customer: '.$stripeSubscription->customer);
+
             return;
         }
 
@@ -160,8 +164,9 @@ class WebhookService
         $charge = $event->data->object;
         $user = $this->getUserByStripeId($charge->customer);
 
-        if (!$user) {
-            $log->markAsFailed('User not found for customer: ' . $charge->customer);
+        if (! $user) {
+            $log->markAsFailed('User not found for customer: '.$charge->customer);
+
             return;
         }
 

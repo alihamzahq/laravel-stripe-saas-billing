@@ -25,7 +25,7 @@ class PlanController extends Controller
      */
     public function show(Plan $plan): JsonResponse
     {
-        if (!$plan->is_active) {
+        if (! $plan->is_active) {
             return response()->json([
                 'message' => 'Plan not found',
             ], 404);
