@@ -283,9 +283,27 @@ The application handles the following Stripe webhook events:
 - `customer.subscription.deleted` - Handles subscription cancellations
 - `charge.refunded` - Logs refund transactions
 
-## Testing with Stripe
+## Testing
 
-Use Stripe test card numbers:
+The project ships with a PHPUnit test suite covering authentication, subscription lifecycle, Stripe webhook handling, admin authorization, and service-layer business logic. Stripe API calls are mocked via Mockery — no real Stripe calls are made in CI.
+
+**Run tests:**
+```bash
+php artisan test
+```
+
+**Coverage includes:**
+- Auth API (register, login, logout, token revocation, validation)
+- Plans API (active-only filtering, 404 for inactive)
+- Subscriptions API (create, cancel, duplicate prevention)
+- Admin authorization (non-admin blocked, redirects)
+- Admin plan CRUD (create, toggle active)
+- Stripe webhooks (signature verification, invoice.paid, subscription.deleted)
+- Service unit tests with mocked Stripe client
+
+### Stripe Test Cards
+
+Use these test card numbers when exercising the app manually:
 - **Success:** `4242 4242 4242 4242`
 - **Decline:** `4000 0000 0000 0002`
 - **Requires Auth:** `4000 0025 0000 3155`
