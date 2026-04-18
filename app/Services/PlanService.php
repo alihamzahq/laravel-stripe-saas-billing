@@ -10,9 +10,9 @@ class PlanService
 {
     protected StripeClient $stripe;
 
-    public function __construct()
+    public function __construct(?StripeClient $stripe = null)
     {
-        $this->stripe = Cashier::stripe();
+        $this->stripe = $stripe ?? Cashier::stripe();
     }
 
     /**
